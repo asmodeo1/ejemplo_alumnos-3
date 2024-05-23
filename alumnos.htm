@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alumnos</title>
+    <style>
+        body {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+        main {
+            text-align: center;
+            max-width: 60%;
+            margin: auto;
+        }
+        .alumno {
+            border:1px solid rgb(107, 106, 106);
+            padding: 5px;
+            margin: 5px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .aprobado {
+            background-color: rgb(183, 244, 160);
+        }
+        .suspenso {
+            background-color: rgb(242, 161, 148);
+        }
+ 
+        .encabezado {
+            display: flex;
+            justify-content: space-between;
+        } 
+        .filtros {
+            display: flex;
+            justify-content: start;
+            align-items: start;
+        }
+        .filtros input, .filtros select {
+            margin: 10px;
+        }
+
+    </style>
+    <script src="alumnos.js" defer></script>
+</head>
+<body>
+    <main>
+        <h1>Listado de alumnos</h1>
+        <section id="alumnos">
+            <div class="filtros">
+                <input type="button" value="aprobados" id="aprobados">
+                <input type="button" value="suspensos" id="suspensos">
+                <select id="curso">
+                    <option value="">Curso</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+                <label for="nombre">Nombre:</label>
+                <input type="search" id="nombre">
+            </div>
+            <div class="encabezado"><span>Nombre</span><span>Nota</span><span>Curso</span></div>
+        </section>
+    </main>
+</body>
+</html>
