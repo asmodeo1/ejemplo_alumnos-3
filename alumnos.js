@@ -2,6 +2,12 @@ const nombres = ["eva", "luis", "sergio", "sandra", "eduardo", "ernesto", "sofia
 const notas = [10, 5, 7, 3, 2, 7, 8, 5, 1];
 const cursos = [1, 2, 1, 2, 3, 3, 1, 2, 2];
 
+const FILTRO_POR_NOMBRE = 1;
+const FILTRO_POR_APROBADOS = 2;
+const FILTRO_POR_SUSPENSOSS = 3;
+const FILTRO_POR_CURSO = 4;
+
+
 /**
  * Muestra todos los alumnos en la sección alumnos
  * @param {[String]} nombres - array con los nombres a mostrar
@@ -35,64 +41,58 @@ function mostrarAlumnos(nombres, notas, cursos) {
     }
 }
 
-function mostrarAprobados() {
+/**
+ * 
+ * @param {Number} filtro - 1 para filtrar por nombre, 2 para filtrar por aprobados
+ * 3 para filtrar por suspensos y 4 para filtrar por curso
+ */
+function mostrarFiltrados(filtro) {
     const alumnos = document.getElementsByClassName('alumno');
     const cursoElegido = document.getElementById('curso').value;
-    for (const alumno of alumnos) {
-        const nota = alumno.querySelector("span:nth-of-type(2)").textContent;
-        const curso = alumno.querySelector("span:nth-of-type(3)").textContent;
-        if (nota >= 5 && (curso == cursoElegido || cursoElegido == "")) {
-            alumno.style.display = "flex";
-        } else {
-            alumno.style.display = "none";
+    const nombreElegido = document.getElementById('nombre').value.trim();
+    for(let i = 0; i < alumnos.length; i++) {
+        if (filtro == FILTRO_POR_NOMBRE) {
+            if (nombres[i].startsWith(nombreElegido)  && (cursos[i] == cursoElegido || cursoElegido == "")) {
+                alumnos[i].style.display = "flex";
+            } else {
+                alumnos[i].style.display = "none";
+            }
+        } else if(filtro == FILTRO_POR_APROBADOS) {
+            if (notas[i] >= 5 && (cursos[i] == cursoElegido || cursoElegido == "")) {
+                alumnos[i].style.display = "flex";
+            } else {
+                alumnos[i].style.display = "none";
+            }
+        } else if(filtro == FILTRO_POR_SUSPENSOSS) {
+            if (notas[i] < 5 && (cursos[i] == cursoElegido || cursoElegido == "")) {
+                alumnos[i].style.display = "flex";
+            } else {
+                alumnos[i].style.display = "none";
+            }
+        } else if(filtro == FILTRO_POR_CURSO) {
+            if (cursos[i] == cursoElegido || cursoElegido == "") {
+                alumnos[i].style.display = "flex";
+            } else {
+                alumnos[i].style.display = "none";
+            }
         }
-        //alumno.style.display = nota >= 5 && ( curso == cursoElegido || cursoElegido == "") ? "flex" : "none";
     }
+}
+
+function mostrarAprobados() {
+    mostrarFiltrados(FILTRO_POR_APROBADOS);
 }
 
 function mostrarSuspensos() {
-    const alumnos = document.getElementsByClassName('alumno');
-    const cursoElegido = document.getElementById('curso').value;
-    for (const alumno of alumnos) {
-        const nota = alumno.querySelector("span:nth-of-type(2)").textContent;
-        const curso = alumno.querySelector("span:nth-of-type(3)").textContent;
-        if (nota < 5 && (curso == cursoElegido || cursoElegido == "")) {
-            alumno.style.display = "flex";
-        } else {
-            alumno.style.display = "none";
-        }
-        //alumno.style.display = nota < 5 && ( curso == cursoElegido || cursoElegido == "") ? "flex" : "none";
-    }
+   mostrarFiltrados(FILTRO_POR_SUSPENSOSS);
 }
 
 function mostrarPorCurso() {
-    const cursoElegido = document.getElementById('curso').value;
-    const alumnos = document.getElementsByClassName('alumno');
-    for (const alumno of alumnos) {
-        const curso = alumno.querySelector("span:nth-of-type(3)").textContent;
-        if (curso == cursoElegido || cursoElegido == "") {
-            alumno.style.display = "flex";
-        } else {
-            alumno.style.display = "none";
-        }
-        //alumno.style.display = curso == cursoElegido ? "flex" : "none";
-    }
+    mostrarFiltrados(FILTRO_POR_CURSO);
 }
 
 function mostrarPorNombre() {
-    const cursoElegido = document.getElementById('curso').value;
-    const alumnos = document.getElementsByClassName('alumno');
-    const nombreElegido = document.getElementById('nombre').value.trim();
-    for (const alumno of alumnos) {
-        const nombre = alumno.querySelector("span:nth-of-type(1)").textContent;
-        const curso = alumno.querySelector("span:nth-of-type(3)").textContent;
-        if (nombre.startsWith(nombreElegido)  && (curso == cursoElegido || cursoElegido == "")) {
-            alumno.style.display = "flex";
-        } else {
-            alumno.style.display = "none";
-        }
-        //alumno.style.display = nombre.startsWith(nombreElegido)  && (curso == cursoElegido || cursoElegido == "") ? "flex" : "none";
-    }
+    mostrarFiltrados(FILTRO_POR_NOMBRE);
 }
 
 document.getElementById('aprobados').addEventListener("click", mostrarAprobados);
