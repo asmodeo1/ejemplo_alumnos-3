@@ -4,7 +4,7 @@ const cursos = [1, 2, 1, 2, 3, 3, 1, 2, 2];
 
 const FILTRO_POR_NOMBRE = 1;
 const FILTRO_POR_APROBADOS = 2;
-const FILTRO_POR_SUSPENSOSS = 3;
+const FILTRO_POR_SUSPENSOS = 3;
 const FILTRO_POR_CURSO = 4;
 
 
@@ -63,7 +63,7 @@ function mostrarFiltrados(filtro) {
             } else {
                 alumnos[i].style.display = "none";
             }
-        } else if(filtro == FILTRO_POR_SUSPENSOSS) {
+        } else if(filtro == FILTRO_POR_SUSPENSOS) {
             if (notas[i] < 5 && (cursos[i] == cursoElegido || cursoElegido == "")) {
                 alumnos[i].style.display = "flex";
             } else {
@@ -84,7 +84,7 @@ function mostrarAprobados() {
 }
 
 function mostrarSuspensos() {
-   mostrarFiltrados(FILTRO_POR_SUSPENSOSS);
+   mostrarFiltrados(FILTRO_POR_SUSPENSOS);
 }
 
 function mostrarPorCurso() {
